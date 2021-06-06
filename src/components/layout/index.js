@@ -153,7 +153,7 @@ p {
 }
 
 /* section */
-.section {
+section {
   padding: 5rem 0;
   position: relative;
 }

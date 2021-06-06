@@ -6,5 +6,10 @@
 
 module.exports = {
   /* Your site config here */
-  plugins: [`gatsby-plugin-emotion`],
+  plugins: [
+    `gatsby-plugin-emotion`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    ],
 }

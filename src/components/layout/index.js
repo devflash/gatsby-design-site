@@ -1,5 +1,6 @@
 import React from 'react';
 import { Global, css } from '@emotion/react';
+import Footer from '../footer';
 
 const styles = css`
     /*
@@ -176,6 +177,7 @@ const Layout = ({children}) => {
         <>
             <Global styles={styles}/>
             {children}
+            <Footer/>
         </>
     )
 }

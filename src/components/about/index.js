@@ -28,9 +28,13 @@ const card = css`
     }
     p{
         color: var(--clr-grey-3);
+        margin: 0;
     }
     @media screen and (min-width: 800px){
         flex: 0 1 calc(50% - 1rem);
+    }
+    :last-of-type{
+        margin-bottom: 0;
     }
 `;
 

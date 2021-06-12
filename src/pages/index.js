@@ -4,6 +4,7 @@ import Hero from '../components/hero';
 import Navigation from '../components/navigation';
 import About from '../components/about';
 import Projects from '../components/projects';
+import Survey from '../components/survey';
 
 export default function Home() {
   return(
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero/>
       <About/>
       <Projects/>
+      <Survey/>
     </Layout>
   );
 }

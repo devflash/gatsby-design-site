@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import Layout from '../../components/layout';
 import Navigation from '../../components/navigation';
 import Projects from '../../components/projects';
+import Search from '../../components/search';
 
 const navCss = css`
     background-color: var(--clr-primary-7);
@@ -21,6 +22,7 @@ const ProjectsPage = () => (
     <Layout>
         <Navigation customCSS={navCss}/>
         <Projects titleText="Our Projects" showCategories gridCustomCss={gridCustomCss} />
+        <Search/>
     </Layout>
 );
 

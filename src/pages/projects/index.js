@@ -20,7 +20,7 @@ const gridCustomCss = css`
 const ProjectsPage = () => (
     <Layout>
         <Navigation customCSS={navCss}/>
-        <Projects gridCustomCss={gridCustomCss} />
+        <Projects titleText="Our Projects" showCategories gridCustomCss={gridCustomCss} />
     </Layout>
 );
 

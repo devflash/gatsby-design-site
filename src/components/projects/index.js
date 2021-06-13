@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import Title from '../title';
 import { StaticImage } from 'gatsby-plugin-image';
+import Categories from './categories';
 
 const wrapper = css`
     width: 90vw;
@@ -72,9 +73,10 @@ const card3 = css`
 `;
 
 
-const Projects = ({gridDynamic=false, gridCustomCss}) => (
+const Projects = ({titleText, showCategories, gridDynamic=false, gridCustomCss}) => (
     <section css={greyBackground}>
-        <Title titleText="Latest Projects"/>
+        <Title titleText={titleText}/>
+        {showCategories && <Categories />}
         <div css={[wrapper, gridCustomCss]}>
             <article css={[card, gridDynamic && card0]}>
                 <StaticImage 

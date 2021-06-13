@@ -93,9 +93,9 @@ const arrow = css`
 `;
 
 
-const Navigation = () => {
+const Navigation = ({customCSS}) => {
     return (
-        <div css={wrapper}>
+        <div css={[wrapper, customCSS]}>
             <div css={navCenter}>
                 <Link to="/">
                     <StaticImage 

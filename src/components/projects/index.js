@@ -10,18 +10,7 @@ const wrapper = css`
     display: grid;
     grid-template-rows: 300px 300px;
     grid-auto-rows: 300px;
-    gap: 1rem;
-    @media screen and (min-width: 768px){
-        grid-template-columns: 1fr 1fr;
-    }
-    @media screen and (min-width: 900px){
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media screen and (min-width: 1200px){
-        grid-template-areas: 
-            "a b b"
-            "a c d"
-    }
+    gap: 2rem;
 `;
 
 const greyBackground = css`
@@ -83,11 +72,11 @@ const card3 = css`
 `;
 
 
-const Projects = () => (
+const Projects = ({gridDynamic=false, gridCustomCss}) => (
     <section css={greyBackground}>
         <Title titleText="Latest Projects"/>
-        <div css={wrapper}>
-            <article css={[card, card0]}>
+        <div css={[wrapper, gridCustomCss]}>
+            <article css={[card, gridDynamic && card0]}>
                 <StaticImage 
                     src="../../images/temp-images/kitchen-1.png"
                     alt="kitchen-1"
@@ -99,7 +88,7 @@ const Projects = () => (
                     <h3>Modern kitchen</h3>
                 </div>
             </article>
-            <article css={[card, card1]}>
+            <article css={[card, gridDynamic && card1]}>
                 <StaticImage 
                     src="../../images/temp-images/bathroom-1.png"
                     alt="kitchen-1"
@@ -111,7 +100,7 @@ const Projects = () => (
                     <h3>Outside bathroom</h3>
                 </div>
             </article>
-            <article css={[card, card2]}>
+            <article css={[card, gridDynamic && card2]}>
                 <StaticImage 
                     src="../../images/temp-images/bedroom-1.png"
                     alt="kitchen-1"
@@ -123,7 +112,7 @@ const Projects = () => (
                     <h3>Comfy Bedroom</h3>
                 </div>
             </article>
-            <article css={[card, card3]}>
+            <article css={[card, gridDynamic && card3]}>
                 <StaticImage 
                     src="../../images/temp-images/kitchen-1.png"
                     alt="kitchen-1"

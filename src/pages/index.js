@@ -27,7 +27,7 @@ export default function Home() {
       <Navigation/>
       <Hero/>
       <About/>
-      <Projects gridDynamic gridCustomCss={gridCustomCss}/>
+      <Projects titleText="Latest Projects" showCategories={false} gridDynamic gridCustomCss={gridCustomCss}/>
       <Survey/>
     </Layout>
   );

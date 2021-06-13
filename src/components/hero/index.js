@@ -79,7 +79,7 @@ const Hero = () => (
             <div css={content}>
                 <h3>If you can dream it, we can create it</h3>
                 <h1>let your home be inique and stylish</h1>
-                <Link to="/" css={heroBtn}>Projects</Link>
+                <Link to="/projects" css={heroBtn}>Projects</Link>
             </div>
         </div>
     </div>

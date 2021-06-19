@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { css } from '@emotion/react';
 import Title from '../title';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import Categories from './categories';
 
 const wrapper = css`
@@ -72,63 +72,46 @@ const card3 = css`
     }
 `;
 
+const filterProducts = (data, type) => {
+    if(type === 'all') 
+        return data;
+    else
+        return data.filter((cur) => cur.type === type);
+}
 
-const Projects = ({titleText, showCategories, gridDynamic=false, gridCustomCss}) => (
+const Projects = ({products, titleText, showCategories, gridDynamic=false, gridCustomCss}) => {
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [type, setType] = useState('all');
+
+    useEffect(() => {
+        setFilteredProducts(filterProducts(products, type));
+    },[type]);
+
+    return (
     <section css={greyBackground}>
         <Title titleText={titleText}/>
-        {showCategories && <Categories />}
+        {showCategories && <Categories products={products} setType={setType}/>}
         <div css={[wrapper, gridCustomCss]}>
-            <article css={[card, gridDynamic && card0]}>
-                <StaticImage 
-                    src="../../images/temp-images/kitchen-1.png"
-                    alt="kitchen-1"
-                    layout="constrained"
-                    css={projectImage}
-                />
-                <div css={info}>
-                    <p>- Kitchen -</p>
-                    <h3>Modern kitchen</h3>
-                </div>
-            </article>
-            <article css={[card, gridDynamic && card1]}>
-                <StaticImage 
-                    src="../../images/temp-images/bathroom-1.png"
-                    alt="kitchen-1"
-                    layout="constrained"
-                    css={projectImage}
-                />
-                <div css={info}>
-                    <p>- bathroom -</p>
-                    <h3>Outside bathroom</h3>
-                </div>
-            </article>
-            <article css={[card, gridDynamic && card2]}>
-                <StaticImage 
-                    src="../../images/temp-images/bedroom-1.png"
-                    alt="kitchen-1"
-                    layout="constrained"
-                    css={projectImage}
-                />
-                <div css={info}>
-                    <p>- bedroom -</p>
-                    <h3>Comfy Bedroom</h3>
-                </div>
-            </article>
-            <article css={[card, gridDynamic && card3]}>
-                <StaticImage 
-                    src="../../images/temp-images/kitchen-1.png"
-                    alt="kitchen-1"
-                    layout="constrained"
-                    css={projectImage} 
-                />
-                <div css={info}>
-                    <p>- Kitchen -</p>
-                    <h3>Modern kitchen</h3>
-                </div>
-            </article>
+            {
+                filteredProducts.map((product) => (
+                    <article key={product.id} css={[card, gridDynamic && card0]}>
+                        <GatsbyImage 
+                            image={product.image.gatsbyImageData}
+                            alt="kitchen-1"
+                            layout="constrained"
+                            css={projectImage}
+                        />
+                        <div css={info}>
+                            <p>- {product.name} -</p>
+                            <h3>{product.description}</h3>
+                        </div>
+                    </article>
+
+                ))
+            }
         </div>
     </section>
-);
+)};
 
 
 export default Projects;

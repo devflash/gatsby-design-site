@@ -20,6 +20,7 @@
     "gatsby-plugin-emotion": "^6.6.0",
     "gatsby-plugin-image": "^1.6.0",
     "gatsby-plugin-sharp": "^3.6.0",
+    "gatsby-source-contentful": "^5.7.1",
     "gatsby-source-filesystem": "^3.6.0",
     "gatsby-transformer-sharp": "^3.6.0",
     "react": "^17.0.1",

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
-
+import {useStaticQuery, graphql} from 'gatsby';
 const wrapper = css`
     width: 90vw;
     max-width: 350px;
@@ -20,6 +20,7 @@ const category = css`
         border: none;
         background-color: transparent;
         cursor: pointer;
+        text-transform: capitalize;
     }
 `;
 
@@ -38,26 +39,45 @@ const active = css`
     width: 100%;
 `;
 
-const Categories = () => {
+const query = graphql`
+{
+  allContentfulProducts {
+    nodes {
+      type
+      id
+    }
+  }
+}
+`;
+
+const populateCategories = (data) => {
+    return ['all', ...new Set(data.map((cur) => cur.type))];
+}
+
+const Categories = ({setType}) => {
     const [state, setState] = useState(0);
+    const [categories, setCategories] = useState([]);
+    const { allContentfulProducts: {nodes: data}} = useStaticQuery(query);
+
+    useEffect(() => {
+        const uniqueCategories = populateCategories(data);
+        setCategories(uniqueCategories);
+    },[]);
+
+    const categoryClick = (type, index) => {
+        setState(index);
+        setType(type);
+    }
     return (
     <ul css={wrapper}>
-        <li css={category}>
-            <button onClick={() => setState(0)}>All</button>
-            <div css={[underline, state === 0 ? active : null]}></div>
-        </li>
-        <li css={category}>
-            <button onClick={() => setState(1)}>Bedroom</button>
-            <div css={[underline, state === 1 && active]}></div>
-        </li>
-        <li css={category}>
-            <button onClick={() => setState(2)}>Kitchen</button>
-            <div css={[underline, state === 2 && active]}></div>
-        </li>
-        <li css={category}>
-            <button onClick={() => setState(3)}>Bathroom</button>
-            <div css={[underline, state === 3 && active]}></div>
-        </li>
+        {
+            categories.map((cur, index) => (
+                <li key={index} css={category}>
+                    <button onClick={() => categoryClick(cur, index)}>{cur}</button>
+                    <div css={[underline, state === index ? active : null]}></div>
+                </li>
+            ))
+        }
     </ul>
 )}
 

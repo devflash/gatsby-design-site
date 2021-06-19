@@ -1,5 +1,6 @@
 import React from "react"
 import { css } from '@emotion/react';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Hero from '../components/hero';
 import Navigation from '../components/navigation';
@@ -21,14 +22,40 @@ const gridCustomCss = css`
   }
 `;
 
-export default function Home() {
+const Home = ({data}) => {
+  console.log(data);
+  const { allContentfulProducts: { nodes:products } } = data;
   return(
     <Layout>
       <Navigation/>
       <Hero/>
       <About/>
-      <Projects titleText="Latest Projects" showCategories={false} gridDynamic gridCustomCss={gridCustomCss}/>
+      <Projects 
+        products={products}
+        titleText="Latest Projects" 
+        showCategories={false} 
+        gridDynamic 
+        gridCustomCss={gridCustomCss}
+        />
       <Survey/>
     </Layout>
   );
 }
+
+export const query = graphql`
+  {
+    allContentfulProducts(limit: 4, sort: {order: ASC, fields: createdAt}) {
+      nodes {
+        id
+        name
+        description
+        type
+        image {
+          gatsbyImageData(layout: CONSTRAINED, placeholder: TRACED_SVG)
+        }
+      }
+    }
+  }
+`
+
+export default Home;

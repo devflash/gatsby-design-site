@@ -30,7 +30,7 @@ const ProjectsPage = ({data}) => {
           showCategories 
           gridCustomCss={gridCustomCss}
         />
-        <Search/>
+        <Search products={projects}/>
     </Layout>
 )};
 

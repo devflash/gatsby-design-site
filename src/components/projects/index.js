@@ -79,6 +79,12 @@ const filterProducts = (data, type) => {
         return data.filter((cur) => cur.type === type);
 }
 
+const gridCards={
+    0: card0,
+    1: card1,
+    2: card2,
+    3: card3
+}
 const Projects = ({products, titleText, showCategories, gridDynamic=false, gridCustomCss}) => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [type, setType] = useState('all');
@@ -93,12 +99,11 @@ const Projects = ({products, titleText, showCategories, gridDynamic=false, gridC
         {showCategories && <Categories products={products} setType={setType}/>}
         <div css={[wrapper, gridCustomCss]}>
             {
-                filteredProducts.map((product) => (
-                    <article key={product.id} css={[card, gridDynamic && card0]}>
+                filteredProducts.map((product, index) => (
+                    <article key={product.id} css={[card, gridDynamic && gridCards[index]]}>
                         <GatsbyImage 
                             image={product.image.gatsbyImageData}
                             alt="kitchen-1"
-                            layout="constrained"
                             css={projectImage}
                         />
                         <div css={info}>

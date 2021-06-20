@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import Title from '../title';
-import { FiSearch } from 'react-icons/fi';
 import { ImCancelCircle } from 'react-icons/im';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import useSearch from '../../hooks/useSearch';
 
 const wrapper = css`
     width: 90vw;
@@ -41,10 +41,7 @@ const serachBtn = css`
     color: var(--clr-white);
     display: flex;
     align-items: center;
-`;
-
-const cancelBtn = css`
-    background-color: var(--clr-red-light);
+    cursor: pointer;
 `;
 
 const cardWrapper = css`
@@ -84,55 +81,31 @@ const cardImg = css`
     height: 200px;
 `;
 
-const Search = () => {
+const Search = ({products}) => {
     const [value, setValue] = useState('');
+    const searchResult = useSearch(products, value);
     return (
     <section css={greyBackground}>
         <Title titleText="Search Project" />
         <div css={wrapper}>
             <div css={serachBox}>
                 <input value={value} onChange={(e) => setValue(e.target.value)} css={searchInput} placeholder="Search here..." />
-                <button css={serachBtn}><FiSearch /></button>
-               {value.length > 0 && <button css={[serachBtn, cancelBtn]}><ImCancelCircle /></button>}
+               {value.length > 0 && <button onClick={() => setValue('')} css={serachBtn}><ImCancelCircle /></button>}
             </div>
 
             <div css={cardWrapper}>
-                <article css={card}>
-                    <StaticImage 
-                        src="../../images/temp-images/kitchen-1.png"
-                        alt="kitchen-1"
-                        layout="constrained"
-                        css={cardImg}
-                    />
-                    <h4>Modern Kitchen</h4>
-                </article>
-                <article css={card}>
-                    <StaticImage 
-                        src="../../images/temp-images/bathroom-1.png"
-                        alt="kitchen-1"
-                        layout="constrained"
-                        css={cardImg}
-                    />
-                    <h4>Retro bathroom</h4>
-                </article>
-                <article css={card}>
-                    <StaticImage 
-                        src="../../images/temp-images/bedroom-1.png"
-                        alt="kitchen-1"
-                        layout="constrained"
-                        css={cardImg}
-                    />
-                    <h4>Comfy Bedroom</h4>
-                </article>
-                <article css={card}>
-                    <StaticImage 
-                        src="../../images/temp-images/kitchen-2.png"
-                        alt="kitchen-1"
-                        layout="constrained"
-                        css={cardImg}
-                    />
-                    <h4>Vintage Kitchen</h4>
-                </article>
+                {
+                    searchResult.map((product) => (
+                        <article css={card}>
+                            <GatsbyImage 
+                                image={product.image.gatsbyImageData}
+                                alt="kitchen-1"
+                                css={cardImg}
+                            />
+                            <h4>{product.description}</h4>
+                        </article>
+                    ))
+                }
             </div>
         </div>
     </section>
